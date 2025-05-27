@@ -1,0 +1,17 @@
+/**
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Colors
+ *
+ **/
+
+* {
+    background:     #1e1e2e; /* Catppuccin Mocha base */
+    background-alt: #313244; /* Catppuccin Mocha surface0 */
+    foreground:     #cdd6f4; /* Catppuccin Mocha text */
+    selected:       #f5c2e7; /* Catppuccin Mocha pink */
+    active:         #cba6f7; /* Catppuccin Mocha mauve */
+    urgent:         #f38ba8; /* Catppuccin Mocha red */
+}
