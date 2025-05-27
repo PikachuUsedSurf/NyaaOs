@@ -25,6 +25,7 @@ home.packages = with pkgs; [
   btop                              # Resource monitor
   fastfetch                         # System information display tool
   hyprutils                         # Utilities specific to the Hyprland compositor
+  hyprlock                          # Screen locker for Hyprland
   wlogout                           # Logout manager for Wayland
   wl-clipboard                      # Command-line interface for Wayland clipboard
   libnotify                         # Library for desktop notifications
