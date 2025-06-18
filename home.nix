@@ -96,7 +96,7 @@ home.packages = with pkgs; [
 
 
   # Home Manager version
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 
   # Terminal configuration
@@ -141,7 +141,7 @@ home.packages = with pkgs; [
     extraConfig = builtins.readFile ./home-manager/hypr/hyprland.conf;
     plugins = [
       # pkgs.hyprlandPlugins.hyprspace
-    ];kitty
+    ];
   };
 
   # Waybar configuration
@@ -167,7 +167,6 @@ home.packages = with pkgs; [
       window-format = "{w} · {c} · {t}";
       icon-theme = "Papirus";
     };
-  #  theme = "./home-manager/rofi/config.rasi";
   };
 
   # For ozone-based applications
@@ -181,8 +180,6 @@ home.packages = with pkgs; [
   # File configurations
   home.file.".config/waybar/modules.json".source = ./home-manager/waybar/modules.json;
   home.file.".config/hypr/wallpapers/default.jpg".source = ./home-manager/hypr/wallpapers/re1.jpg;
-  #home.file.".config/hypr/themes/default/theme.conf".source = ./home-manager/hypr/themes/default/theme.conf;
-  #home.file.".config/rofi/config.rasi".source = ./home-manager/rofi/config.rasi;
   home.file.".config/rofi/shared/colors.rasi".source = ./home-manager/rofi/shared/colors.rasi;
   home.file.".config/rofi/shared/fonts.rasi".source = ./home-manager/rofi/shared/fonts.rasi;
   home.file.".config/rofi/power-menu.sh" = {
@@ -192,45 +189,5 @@ home.packages = with pkgs; [
   home.file."scripts/rofi-wifi-menu/rofi-wifi-menu.sh" = {
     source = ./home-manager/waybar/rofi-wifi-menu.sh;
     executable = true;
-  };
-
-  home.file.".local/bin/theme-switch" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      THEME="$HOME/.config/hypr/themes"
-      WALLPAPERS="$HOME/.config/hypr/wallpapers"
-      SELECTED=$(ls $THEME | rofi -dmenu -p "Select theme:" -theme ~/.config/rofi/config.rasi)
-      if [ -z "$SELECTED" ]; then
-        exit 0
-      fi
-      WALLPAPER=$(find "$WALLPAPERS/$SELECTED" -type f | shuf -n 1)
-      if [ -n "$WALLPAPER" ]; then
-        swww img "$WALLPAPER" --transition-type grow --transition-pos 0.9,0.1
-      fi
-      cp "$THEME/$SELECTED/theme.conf" "$HOME/.config/hypr/current_theme.conf"
-      hyprctl reload
-    '';
-  };
-
-  home.file.".local/bin/anime-fetch" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      echo "  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-      echo "  $(tput setaf 5)OS$(tput setaf 7): NyaaOS (NixOS)"
-      echo "  $(tput setaf 5)WM$(tput setaf 7): Hyprland"
-      echo "  $(tput setaf 5)Shell$(tput setaf 7): $(basename $SHELL)"
-      echo "  $(tput setaf 5)Term$(tput setaf 7): $TERM"
-      echo "  $(tput setaf 5)Packages$(tput setaf 7): $(ls /run/current-system/sw/bin | wc -l)"
-      echo ""
-    '';
   };
 }
